@@ -1,8 +1,14 @@
 from bs4 import BeautifulSoup
-import html
 import requests
+import cloudscraper
+import sys
+import io
+sys.stdout.reconfigure(encoding='utf-8')
 # Get web page link
-html_content = requests.get("https://tracker.gg/valorant")   
-# Create a BeautifulSoup object
-soup = BeautifulSoup(html_content.text, "html.parser")
-print(soup.prettify)
+scraper = cloudscraper.create_scraper(delay = 10)  # returns a CloudScraper instance
+
+response = scraper.get("https://tracker.gg/valorant")
+
+# Print status code and page content
+print(f"Status Code: {response.status_code}")
+print(response.text) 
